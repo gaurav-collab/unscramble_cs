@@ -1,0 +1,119 @@
+TASK 0
+
+first_text = texts[0]		# O = 1
+last_call = calls[-1]		# O = 1
+
+print('First record of text, {incoming} texts {answering} at time {time}'.format(incoming = first_text[0], answering = first_text[1], time = first_text[2]))		# O = 1
+print('Last record of calls, {incoming} calls {answering} at time {time}, lasting {during} seconds'.format(incoming = last_call[0], answering = last_call[1], time = last_call[2], during = last_call[3]))		# O = 1
+
+Answer: O(n) = 4
+
+
+TASK 1
+
+lst = []		# 1
+
+for record in texts:		# Let m be the no of items in texts. O = (m + 1)
+    for num in record[:2]:	# O = (2 + 1) = 3
+        if num not in lst:	# O = 1
+            lst.append(num)	# O = 1
+for record in calls:		# Let n be the no of items in calls. O = (n + 1)
+    for num in record[:2]:	# O = (2 + 1) = 3
+        if num not in lst:	# O = 1
+            lst.append(num)	# O = 1
+
+print('There are {count} different telephone numbers in the records.'.format(count = str(len(lst))))		# O = 1
+
+Answer: O(m, n) = (m + 1) * 3 * (1 + 1) + (n + 1) * 3 * (1 + 1) = 36(m + 1)(n + 1)
+
+
+TASK 2
+
+di = {}								# O = 1
+			
+for record in calls:						# Let n be the no of items in calls. O = (n + 1)
+    for num in record[:2]:					# O = (2 + 1) = 3
+        if num not in di:					# O = 1
+            di[num] = int(record[3])				# O = 1
+        else:							# O = 1
+            di[num] += int(record[3])				# O = 1
+
+key_max = max(di.keys(), key=(lambda k: di[k]))			# O = 1
+
+print('{num} spent the longest time, {time} seconds, on the phone during September 2016.'.format(num = key_max, time = str(di[key_max])))		# O = 1
+
+Answer: O(n) = 1 + (n + 1) * 3 * 4 + 1 = 12(n + 1) + 2
+
+
+
+TASK 3
+
+PART A
+
+new = []							# O = 1
+for call in calls:						# Let n be the no of items in calls. O = (n + 1)						
+    if '(080)' in call[0]:					# O = 1
+        num = int(call[0].replace('(080)', ''))			# O = 1
+        if num not in new:					# O = 1
+            new.append(num)					# O = 1
+               
+new.sort()							# O = nlog(n) Worst case scenario if there are no duplicates
+
+print('The numbers called by people in Bangalore have codes:')	# O = 1
+for num in new:							# O = (n + 1)
+    print('(080)' + str(num))					# O = 1
+
+
+Answer: O(n) = 1 + (n + 1) * 4 + nlog(n) + 1 + (n + 1) + 1 = 5(n + 1) + nlog(n) + 3 
+    
+PART B
+
+total_count = 0							# O = 1
+count = 0							# O = 1
+for call in calls:						# Let n be the no of items in calls. O = (n + 1)
+    if '(080)' in call[0]:					# O = 1
+        total_count += 1					# O = 1
+    if '(080)' in call[0] and '(080)' in call[1]:		# O = 1
+        count += 1						# O = 1
+percentage = count / total_count * 100				# O = 1
+print("{:.2f} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.".format(percentage))		# O = 1
+
+Answer: O(n) = 1 + 1 + (n + 1) * 4 + 1 + 1 = 4(n + 1) + 4
+
+
+TASK 4
+outgoing_text = []						# O = 1
+answering_text = []						# O = 1
+outgoing_call = []						# O = 1
+answering_call = []						# O = 1
+telemarketers = []						# O = 1
+
+for text in texts:						# Let m be the no of items in texts. O = (m + 1)
+    if text[0] not in outgoing_text:				# O = 1
+        outgoing_text.append(text[0])				# O = 1
+    if text[1] not in answering_text:				# O = 1
+        answering_text.append(text[1])				# O = 1
+        
+for call in calls:						# Let n be the no of items in calls. O = (n + 1)
+    if call[0] not in outgoing_call:				# O = 1
+        outgoing_call.append(call[0])				# O = 1
+    if call[1] not in answering_call:				# O = 1
+        answering_call.append(call[1])				# O = 1
+
+for num in outgoing_call:					# O = (n + 1)  Assuming there are no duplicates.
+    if num not in answering_call and num not in outgoing_text and num not in answering_text:		# O = 1
+        telemarketers.append(num)									# O = 1
+						
+telemarketers.sort()											# O = nlog(n)
+
+print('These numbers could be telemarketers: ')								# O = 1
+for num in telemarketers:										# O = nlog(n) + 1
+    print(num)												# O = 1
+
+
+Answer: O(m, n) = 5 + 4(m + 1) + 4(n + 1) + 2 (n + 1) + nlog(n) + 1 + nlog(n) = 4(m + 1) + 6(n + 1) 2nlog(n) + 6
+
+
+
+
+ 
