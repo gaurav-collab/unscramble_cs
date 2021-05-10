@@ -30,7 +30,7 @@ non_tele = set()
 
 for call in calls:
     outgoing.add(call[0])
-    non_tele.add(call[0])
+    non_tele.add(call[1])
     
 for text in texts:
     non_tele.add(text[0])
