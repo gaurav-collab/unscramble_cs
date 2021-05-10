@@ -25,30 +25,21 @@ Print a message:
 The list of numbers should be print out one per line in lexicographic order with no duplicates.
 """
 
-outgoing_text = []
-answering_text = []
-outgoing_call = []
-answering_call = []
-telemarketers = []
+outgoing = set()
+non_tele = set()
 
-for text in texts:
-    if text[0] not in outgoing_text:
-        outgoing_text.append(text[0])
-    if text[1] not in answering_text:
-        answering_text.append(text[1])
-        
 for call in calls:
-    if call[0] not in outgoing_call:
-        outgoing_call.append(call[0])
-    if call[1] not in answering_call:
-        answering_call.append(call[1])
-
-for num in outgoing_call:
-    if num not in answering_call and num not in outgoing_text and num not in answering_text:
-        telemarketers.append(num)
-
-telemarketers.sort()
+    outgoing.add(call[0])
+    non_tele.add(call[0])
+    
+for text in texts:
+    non_tele.add(text[0])
+    non_tele.add(text[1])
+    
+tele = outgoing - non_tele
+tele_list = list(tele)
+tele_list.sort()
 
 print('These numbers could be telemarketers: ')
-for num in telemarketers:
+for num in tele_list:
     print(num)

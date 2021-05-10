@@ -44,23 +44,32 @@ Print the answer as a part of a message::
 to other fixed lines in Bangalore."
 The percentage should have 2 decimal digits
 """
-PART A
+#PART A
 
-new = []
+area_codes = set()
+
 for call in calls:
-    if '(080)' in call[0]:
-        num = int(call[0].replace('(080)', ''))
-        if num not in new:
-            new.append(num)
-               
-new.sort()
+    if call[0].startswith('(080)'):
+        if call[1].startswith('(0'):
+            code = call[1][0:call[1].find(')') + 1]
+            area_codes.add(code)
+        elif call[1].startswith(('7', '8', '9')):
+            code = call[1][0:4]
+            area_codes.add(code)
+        elif call[1].startswith('140'):
+            code = '140'
+            area_codes.add(code)
 
-print('The numbers called by people in Bangalore have codes:')
-for num in new:
-    print('(080)' + str(num))
+
+area_codes_list = list(area_codes)
+area_codes_list.sort()
+print("The numbers called by people in Bangalore have codes:")
+for code in area_codes_list:
+    print(code)
+
 
     
-PART B
+#PART B
 
 total_count = 0
 count = 0
