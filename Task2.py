@@ -19,17 +19,17 @@ Print a message:
 "<telephone number> spent the longest time, <total time> seconds, on the phone during 
 September 2016.".
 """
-di = {}
+unique = {}
 
 for record in calls:
     for num in record[:2]:
-        if num not in di:
-            di[num] = int(record[3])
+        if num not in unique:
+            unique[num] = int(record[3])
         else:
-            di[num] += int(record[3])
+            unique[num] += int(record[3])
 
-key_max = max(di.keys(), key=(lambda k: di[k]))
+key_max = max(unique.keys(), key=(lambda k: unique[k]))
 
-print('{num} spent the longest time, {time} seconds, on the phone during September 2016.'.format(num = key_max, time = str(di[key_max])))
+print('{num} spent the longest time, {time} seconds, on the phone during September 2016.'.format(num = key_max, time = str(unique[key_max])))
 
 

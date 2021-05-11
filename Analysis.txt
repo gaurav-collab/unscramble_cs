@@ -28,23 +28,23 @@ for call in calls:				# O(n)
     
 print('There are {count} different telephone numbers in the records.'.format(count = str(len(unique_tele_no))))		#O(1)
 
-Answer: O(1)
+Answer: O(n)
 
 
 TASK 2
 
-di = {}								# O(1)
+unique = {}								# O(1)
 								
 for record in calls:						# O(n)						 
     for num in record[:2]:					# O(1)
-        if num not in di:					# O(1)
-            di[num] = int(record[3])				
+        if num not in unique:					# O(1)
+            unique[num] = int(record[3])				
         else:							# O(1)
-            di[num] += int(record[3])	
+            unique[num] += int(record[3])	
 
-key_max = max(di.keys(), key=(lambda k: di[k]))			# O(1)
+key_max = max(unique.keys(), key=(lambda k: unique[k]))			# O(1)
 
-print('{num} spent the longest time, {time} seconds, on the phone during September 2016.'.format(num = key_max, time = str(di[key_max])))		# O(1)
+print('{num} spent the longest time, {time} seconds, on the phone during September 2016.'.format(num = key_max, time = str(unique[key_max])))		# O(1)
 
 Answer: O(n) 
 
@@ -75,7 +75,7 @@ print("The numbers called by people in Bangalore have codes:")
 for code in area_codes_list:					# O(n)
     print(code)
 
-Answer: O(n + nlog(n))
+Answer: O(nlog(n))
     
 #PART B
 
@@ -114,7 +114,7 @@ print('These numbers could be telemarketers: ')
 for num in tele_list:						# O(n)
     print(num)
 
-Answer: O(n + nlog(n))
+Answer: O(nlog(n))
 
 
 
